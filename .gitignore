@@ -1,6 +1,13 @@
 *.class
+*.swp
+*~
+*.iml
 
 # Package Files #
 *.jar
 *.war
 *.ear
+
+
+.idea
+build/
