@@ -1,5 +1,20 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
 group 'com.nikytwo'
 version '1.0-SNAPSHOT'
+
+ext {
+    // The drivers we want to use
+    drivers = ["firefox", "chrome"]
+
+    ext {
+        groovyVersion = '2.4.1'
+        gebVersion = '0.12.2'
+        seleniumVersion = '2.46.0'
+        chromeDriverVersion = '2.19'
+        phantomJsVersion = '1.9.7'
+    }
+}
 
 apply plugin: 'groovy'
 apply plugin: 'java'
@@ -19,5 +34,35 @@ dependencies {
     compile "org.seleniumhq.selenium:selenium-ie-driver:2.45.0"
 //    compile "org.seleniumhq.selenium:selenium-htmlunit-driver:2.45.0"
     compile "org.seleniumhq.selenium:selenium-support:2.45.0"
+    testCompile "org.gebish:geb-junit4:$gebVersion"
     testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+
+drivers.each { driver ->
+    task "${driver}Test"(type: Test) {
+//        reports {
+//            html.destination = reporting.file("$name/tests")
+//            junitXml.destination = file("$buildDir/test-results/$name")
+//        }
+
+        outputs.upToDateWhen { false }  // Always run tests
+
+        systemProperty "geb.build.reportsDir", reporting.file("$name/geb")
+        systemProperty "geb.env", driver
+
+        // If you wanted to set the baseUrl in your build…
+        // systemProperty "geb.build.baseUrl", "http://myapp.com"
+    }
+}
+
+chromeTest {
+    def chromedriverFilename = Os.isFamily(Os.FAMILY_WINDOWS) ? "chromedriver.exe" : "chromedriver"
+    def chromedriverDir = file("$buildDir/test/resources")
+//    systemProperty "webdriver.chrome.driver", new File(chromedriverDir, chromedriverFilename).absolutePath
+}
+
+test {
+    dependsOn drivers.collect { tasks["${it}Test"] }
+    enabled = false
 }
