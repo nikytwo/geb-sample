@@ -58,8 +58,8 @@ drivers.each { driver ->
 
 chromeTest {
     def chromedriverFilename = Os.isFamily(Os.FAMILY_WINDOWS) ? "chromedriver.exe" : "chromedriver"
-    def chromedriverDir = file("$buildDir/test/resources")
-//    systemProperty "webdriver.chrome.driver", new File(chromedriverDir, chromedriverFilename).absolutePath
+    def chromedriverDir = file("$buildDir/resources/test")
+    systemProperty "webdriver.chrome.driver", new File(chromedriverDir, chromedriverFilename).absolutePath
 }
 
 test {

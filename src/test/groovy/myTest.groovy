@@ -10,9 +10,9 @@ import org.junit.runners.JUnit4
  */
 
 @RunWith(JUnit4)
-class adfaa {
+class myTest {
     @Test
-    void tttt() {
+    void oschinaSearchTest() {
         Browser.drive {
             go "/"
 
