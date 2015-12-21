@@ -31,6 +31,11 @@ compile "org.seleniumhq.selenium:selenium-firefox-driver:2.45.0"
 compile "org.seleniumhq.selenium:selenium-support:2.45.0"
 ```
 
+## 运行测试
+
+安装完依赖后，下载本示例项目。
+
+在项目根目录中打开命令行窗口，然后输入`gradle test`，将运行项目下的所有功能测试。
 
 
 ## 使用
@@ -341,9 +346,6 @@ driver.switchTo().alert().accept();
 更多内容请参考官方文档
 
 
-## 运行测试
-
-在项目目录中打开命令行窗口，然后输入`gradle test`，将运行项目下的所有功能测试。
 
 
 ***
