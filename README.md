@@ -2,7 +2,7 @@
 
 ## 效果图
 
-![sample](sample.gif)
+![sample](./sample.gif)
 
 
 ## 依赖及安装
