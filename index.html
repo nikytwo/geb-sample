@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Geb-sample by nikytwo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Geb-sample</h1>
+      <h2 class="project-tagline">浏览器自动化(Geb)测试示例</h2>
+      <a href="https://github.com/nikytwo/geb-sample" class="btn">View on GitHub</a>
+      <a href="https://github.com/nikytwo/geb-sample/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/nikytwo/geb-sample/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="geb-测试示例" class="anchor" href="#geb-%E6%B5%8B%E8%AF%95%E7%A4%BA%E4%BE%8B" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Geb 测试示例</h1>
+
+<h2>
+<a id="效果图" class="anchor" href="#%E6%95%88%E6%9E%9C%E5%9B%BE" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>效果图</h2>
+
+<p><img src="sample.gif" alt="sample"></p>
+
+<h2>
+<a id="依赖及安装" class="anchor" href="#%E4%BE%9D%E8%B5%96%E5%8F%8A%E5%AE%89%E8%A3%85" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>依赖及安装</h2>
+
+<ul>
+<li>jdk1.7+</li>
+<li>gradle/maven (2选1)</li>
+<li>groovy2.3+</li>
+</ul>
+
+<h3>
+<a id="jdk17-安装略" class="anchor" href="#jdk17-%E5%AE%89%E8%A3%85%E7%95%A5" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>jdk1.7 安装(略)</h3>
+
+<h3>
+<a id="gradle-安装" class="anchor" href="#gradle-%E5%AE%89%E8%A3%85" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>gradle 安装</h3>
+
+<p>1 <a href="http://gradle.org/gradle-download/">下载</a></p>
+
+<p>2 解压</p>
+
+<p>3 设置环境变量：添加<code>GRADLE_HOME</code>环境变量指向解压包路径，将<code>GRADLE_HOME/bin</code>添加到<code>path</code>中。</p>
+
+<p>4 测试安装是否成功：打开命令行，输入<code>gradle -v</code></p>
+
+<h3>
+<a id="maven-安装略" class="anchor" href="#maven-%E5%AE%89%E8%A3%85%E7%95%A5" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>maven 安装(略)</h3>
+
+<h3>
+<a id="groovy-安装" class="anchor" href="#groovy-%E5%AE%89%E8%A3%85" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>groovy 安装</h3>
+
+<p>可以通过<code>gradle</code>的包管理功能自动进行安装，无需另外安装。如下代码：</p>
+
+<pre><code>compile "org.gebish:geb-core:0.12.2"
+compile "org.seleniumhq.selenium:selenium-firefox-driver:2.45.0"
+compile "org.seleniumhq.selenium:selenium-support:2.45.0"
+</code></pre>
+
+<h2>
+<a id="运行测试" class="anchor" href="#%E8%BF%90%E8%A1%8C%E6%B5%8B%E8%AF%95" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>运行测试</h2>
+
+<p>安装完依赖后，下载本示例项目。</p>
+
+<p>在项目根目录中打开命令行窗口，然后输入<code>gradle test</code>，将运行项目下的所有功能测试。</p>
+
+<h2>
+<a id="使用" class="anchor" href="#%E4%BD%BF%E7%94%A8" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>使用</h2>
+
+<h3>
+<a id="配置" class="anchor" href="#%E9%85%8D%E7%BD%AE" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>配置</h3>
+
+<p><code>Geb</code>默认的配置文件名为<code>GebConfig.groovy</code>。</p>
+
+<ul>
+<li>baseUrl</li>
+</ul>
+
+<p>在配置文件中设置了<code>baseUrl</code>后，我们即可在编写测试时直接使用相对路径来定位页面。</p>
+
+<p>配置文件中设置如下</p>
+
+<div class="highlight highlight-source-groovy"><pre>baseUrl <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>http://myapp.com/<span class="pl-pds">'</span></span></pre></div>
+
+<p>测试类</p>
+
+<pre lang="grooby"><code>{
+    go "abc"
+}
+</code></pre>
+
+<p>则网址为：<code>http://myapp.com/abc</code></p>
+
+<ul>
+<li>浏览器支持</li>
+</ul>
+
+<p><code>WebDriver</code>默认支持<code>FireFox</code>，若要使用其他浏览器进行测试，需要下载相关的<code>driver</code>。
+如<code>chrome</code>浏览器需要下载<code>chromedriver</code>(本项目已包含，不需要另外下载)。
+更多内容请查看官方文档。</p>
+
+<h3>
+<a id="api-语法参考" class="anchor" href="#api-%E8%AF%AD%E6%B3%95%E5%8F%82%E8%80%83" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>API 语法参考</h3>
+
+<h4>
+<a id="常用" class="anchor" href="#%E5%B8%B8%E7%94%A8" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>常用</h4>
+
+<ul>
+<li><p><code>go</code>: 导航至指定页面</p></li>
+<li><p><code>to</code>: 导航至<code>Page</code>类定义的页面</p></li>
+<li><p><code>waitFor</code>: 等待页面响应</p></li>
+</ul>
+
+<div class="highlight highlight-source-groovy"><pre><span class="pl-c">// 等待页面标题等于某个值</span>
+waitFor { title <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>Page Title<span class="pl-pds">"</span></span> }
+
+<span class="pl-c">// 語法</span>
+waitFor {} <span class="pl-c">// 預設的等待時間</span>
+waitFor(<span class="pl-c1">10</span>) {} <span class="pl-c">// 最長等待時間為 10 秒</span>
+waitFor(<span class="pl-c1">10</span>, <span class="pl-c1">0.5</span>) {} <span class="pl-c">// 最長等待時間為 10 秒，每次判斷條件的間隔時間為 0.5 秒</span>
+waitFor(<span class="pl-s"><span class="pl-pds">"</span>quick<span class="pl-pds">"</span></span>) {} <span class="pl-c">// 依照自定的等待時間</span></pre></div>
+
+<p>使用<code>waitFor</code>时，不要使用引用对象，若使用，则每次检查的都是同一个对象</p>
+
+<h4>
+<a id="navigator-api" class="anchor" href="#navigator-api" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Navigator API</h4>
+
+<p>在编写浏览器自动化测试时，需要大量的<code>DOM</code>操作，
+幸好<code>Geb</code>提供了类似<code>jQuery</code>的选择器，让我们可以轻松的找到一个<code>DOM</code>。</p>
+
+<ul>
+<li>$() 方法</li>
+</ul>
+
+<p>用法与<code>jQuery</code>类似</p>
+
+<p>语法结构：</p>
+
+<div class="highlight highlight-source-groovy"><pre>$([css选择器], [index 或 range], [<span class="pl-c1">DOM</span> 元素 attribute 或 text matchers])</pre></div>
+
+<p>如:</p>
+
+<div class="highlight highlight-source-groovy"><pre>$(<span class="pl-s"><span class="pl-pds">"</span>div p<span class="pl-pds">"</span></span>, <span class="pl-c1">0</span>)
+$(<span class="pl-s"><span class="pl-pds">"</span>div p<span class="pl-pds">"</span></span>, <span class="pl-c1">title</span>: <span class="pl-s"><span class="pl-pds">"</span>something<span class="pl-pds">"</span></span>)
+$(<span class="pl-c1">0</span>)
+$(<span class="pl-c1">title</span>: <span class="pl-s"><span class="pl-pds">"</span>something<span class="pl-pds">"</span></span>)
+
+$(<span class="pl-s"><span class="pl-pds">"</span>p<span class="pl-pds">"</span></span>, <span class="pl-c1">0</span><span class="pl-k">..</span><span class="pl-c1">1</span>)<span class="pl-k">*</span><span class="pl-k">.</span>text()
+$(<span class="pl-s"><span class="pl-pds">"</span>p<span class="pl-pds">"</span></span>, <span class="pl-c1">text</span>: <span class="pl-s"><span class="pl-pds">"</span>p1<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>size()
+$(<span class="pl-s"><span class="pl-pds">"</span>p<span class="pl-pds">"</span></span>, <span class="pl-c1">text</span>: <span class="pl-s"><span class="pl-pds">"</span>p1<span class="pl-pds">"</span></span>, <span class="pl-c1">class</span>: <span class="pl-s"><span class="pl-pds">"</span>a<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>size()
+
+<span class="pl-c">// 正则表达式</span>
+$(<span class="pl-s"><span class="pl-pds">"</span>p<span class="pl-pds">"</span></span>, <span class="pl-c1">text</span>: ~<span class="pl-sr"><span class="pl-pds">/</span>p.<span class="pl-pds">/</span></span>)
+$(<span class="pl-s"><span class="pl-pds">"</span>p<span class="pl-pds">"</span></span>, <span class="pl-c1">text</span>: startsWith(<span class="pl-s"><span class="pl-pds">"</span>p<span class="pl-pds">"</span></span>))
+$(<span class="pl-s"><span class="pl-pds">"</span>p<span class="pl-pds">"</span></span>, <span class="pl-c1">text</span>: endsWith(<span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span>))
+$(<span class="pl-s"><span class="pl-pds">"</span>p<span class="pl-pds">"</span></span>, <span class="pl-c1">text</span>: contains(~<span class="pl-sr"><span class="pl-pds">/</span><span class="pl-cce">\d</span><span class="pl-pds">/</span></span>)).</pre></div>
+
+<p><code>Geb</code>提供以下正则表达式方法</p>
+
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>startsWith</td>
+<td></td>
+</tr>
+<tr>
+<td>contains</td>
+<td></td>
+</tr>
+<tr>
+<td>endsWith</td>
+<td></td>
+</tr>
+<tr>
+<td>containsWord</td>
+<td></td>
+</tr>
+<tr>
+<td>notStartsWith</td>
+<td></td>
+</tr>
+<tr>
+<td>notContains</td>
+<td></td>
+</tr>
+<tr>
+<td>notEndsWith</td>
+<td></td>
+</tr>
+<tr>
+<td>notContainsWord</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li>查找与过滤方法</li>
+</ul>
+
+<div class="highlight highlight-source-groovy"><pre><span class="pl-c">// 这两个是一样的</span>
+$(<span class="pl-s"><span class="pl-pds">"</span>div<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>find(<span class="pl-s"><span class="pl-pds">"</span>.b<span class="pl-pds">"</span></span>)
+$(<span class="pl-s"><span class="pl-pds">"</span>div<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>$(<span class="pl-s"><span class="pl-pds">"</span>.b<span class="pl-pds">"</span></span>)
+
+<span class="pl-c">// 获取 class=b 的 div</span>
+$(<span class="pl-s"><span class="pl-pds">"</span>div<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>filter(<span class="pl-s"><span class="pl-pds">"</span>.b<span class="pl-pds">"</span></span>)
+
+<span class="pl-c">// 获取不包含 p 且 class=b 的 DOM</span>
+$(<span class="pl-s"><span class="pl-pds">"</span>.b<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>not(<span class="pl-s"><span class="pl-pds">"</span>p<span class="pl-pds">"</span></span>)
+
+$(<span class="pl-s"><span class="pl-pds">"</span>div<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>hasNot(<span class="pl-s"><span class="pl-pds">"</span>p<span class="pl-pds">"</span></span>)
+$(<span class="pl-s"><span class="pl-pds">"</span>div<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>hasNot(<span class="pl-s"><span class="pl-pds">"</span>input<span class="pl-pds">"</span></span>, <span class="pl-c1">type</span>: <span class="pl-s"><span class="pl-pds">"</span>text<span class="pl-pds">"</span></span>)
+
+<span class="pl-c">// 获取包含 p 的 div</span>
+$(<span class="pl-s"><span class="pl-pds">"</span>div<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>has(<span class="pl-s"><span class="pl-pds">"</span>p<span class="pl-pds">"</span></span>)
+
+$(<span class="pl-s"><span class="pl-pds">"</span>div<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>has(<span class="pl-s"><span class="pl-pds">"</span>input<span class="pl-pds">"</span></span>, <span class="pl-c1">type</span>: <span class="pl-s"><span class="pl-pds">"</span>text<span class="pl-pds">"</span></span>)</pre></div>
+
+<ul>
+<li>遍历方法</li>
+</ul>
+
+<div class="highlight highlight-source-groovy"><pre>$(<span class="pl-s"><span class="pl-pds">"</span>p.d<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>previous()
+$(<span class="pl-s"><span class="pl-pds">"</span>p.e<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>prevAll()
+$(<span class="pl-s"><span class="pl-pds">"</span>p.d<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>next()
+$(<span class="pl-s"><span class="pl-pds">"</span>p.c<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>nextAll()
+$(<span class="pl-s"><span class="pl-pds">"</span>p.d<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>parent()
+$(<span class="pl-s"><span class="pl-pds">"</span>p.c<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>siblings()
+$(<span class="pl-s"><span class="pl-pds">"</span>div.a<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>children()</pre></div>
+
+<ul>
+<li>模拟点击</li>
+</ul>
+
+<div class="highlight highlight-source-groovy"><pre>$(<span class="pl-s"><span class="pl-pds">"</span>a.login<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>click()</pre></div>
+
+<ul>
+<li>大小与定位</li>
+</ul>
+
+<div class="highlight highlight-source-groovy"><pre>$(<span class="pl-s"><span class="pl-pds">"</span>div<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>height <span class="pl-k">==</span> <span class="pl-c1">20</span>
+$(<span class="pl-s"><span class="pl-pds">"</span>div<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>width <span class="pl-k">==</span> <span class="pl-c1">40</span>
+$(<span class="pl-s"><span class="pl-pds">"</span>div<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>x <span class="pl-k">==</span> <span class="pl-c1">20</span>
+$(<span class="pl-s"><span class="pl-pds">"</span>div<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>y <span class="pl-k">==</span> <span class="pl-c1">10</span></pre></div>
+
+<ul>
+<li>Accessing tag name, attributes, text and classes</li>
+</ul>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">p</span> <span class="pl-e">title</span>=<span class="pl-s"><span class="pl-pds">"</span>a<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>a para<span class="pl-pds">"</span></span>&gt;a&lt;/<span class="pl-ent">p</span>&gt;
+&lt;<span class="pl-ent">p</span> <span class="pl-e">title</span>=<span class="pl-s"><span class="pl-pds">"</span>b<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>b para<span class="pl-pds">"</span></span>&gt;b&lt;/<span class="pl-ent">p</span>&gt;
+&lt;<span class="pl-ent">p</span> <span class="pl-e">title</span>=<span class="pl-s"><span class="pl-pds">"</span>c<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>c para<span class="pl-pds">"</span></span>&gt;c&lt;/<span class="pl-ent">p</span>&gt;</pre></div>
+
+<div class="highlight highlight-source-groovy"><pre><span class="pl-k">assert</span> $(<span class="pl-s"><span class="pl-pds">"</span>p<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>text() <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>a<span class="pl-pds">"</span></span>
+<span class="pl-k">assert</span> $(<span class="pl-s"><span class="pl-pds">"</span>p<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>tag() <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>p<span class="pl-pds">"</span></span>
+<span class="pl-k">assert</span> $(<span class="pl-s"><span class="pl-pds">"</span>p<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>@title <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>a<span class="pl-pds">"</span></span>
+<span class="pl-k">assert</span> $(<span class="pl-s"><span class="pl-pds">"</span>p<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>classes() <span class="pl-k">==</span> [<span class="pl-s"><span class="pl-pds">"</span>a<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>para<span class="pl-pds">"</span></span>]</pre></div>
+
+<ul>
+<li>CSS 属性</li>
+</ul>
+
+<div class="highlight highlight-source-groovy"><pre><span class="pl-k">assert</span> $(<span class="pl-s"><span class="pl-pds">"</span>div<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>css(<span class="pl-s"><span class="pl-pds">"</span>float<span class="pl-pds">"</span></span>) <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>left<span class="pl-pds">"</span></span></pre></div>
+
+<ul>
+<li>模拟键盘输入</li>
+</ul>
+
+<div class="highlight highlight-source-groovy"><pre><span class="pl-c">// 模拟输入 foo</span>
+$(<span class="pl-s"><span class="pl-pds">"</span>input<span class="pl-pds">"</span></span>) <span class="pl-k">&lt;&lt;</span> <span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span>
+<span class="pl-k">assert</span> $(<span class="pl-s"><span class="pl-pds">"</span>input<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>value() <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span>
+
+<span class="pl-c">// 模拟输入 Ctrl+C</span>
+$(<span class="pl-s"><span class="pl-pds">"</span>input<span class="pl-pds">"</span></span>) <span class="pl-k">&lt;&lt;</span> <span class="pl-k">Keys</span><span class="pl-k">.</span>chord(<span class="pl-k">Keys</span><span class="pl-k">.</span><span class="pl-c1">CONTROL</span>, <span class="pl-s"><span class="pl-pds">"</span>c<span class="pl-pds">"</span></span>)
+</pre></div>
+
+<ul>
+<li>复杂交互</li>
+</ul>
+
+<p>1 直接使用<code>WebDriver API</code>的<code>WebElement</code></p>
+
+<p>2 使用<code>Actions</code>类</p>
+
+<div class="highlight highlight-source-groovy"><pre><span class="pl-k">def</span> actions <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-k">Actions</span>(driver)
+<span class="pl-k">WebElement</span> someItem <span class="pl-k">=</span> $(<span class="pl-s"><span class="pl-pds">"</span>li.clicky<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>firstElement()
+<span class="pl-k">def</span> shiftClick <span class="pl-k">=</span> actions<span class="pl-k">.</span>keyDown(<span class="pl-k">Keys</span><span class="pl-k">.</span><span class="pl-c1">SHIFT</span>)<span class="pl-k">.</span>click(someItem)<span class="pl-k">.</span>keyUp(<span class="pl-k">Keys</span><span class="pl-k">.</span><span class="pl-c1">SHIFT</span>)<span class="pl-k">.</span>build()
+shiftClick<span class="pl-k">.</span>perform()</pre></div>
+
+<p>3 使用闭包</p>
+
+<div class="highlight highlight-source-groovy"><pre>interact {
+    keyDown <span class="pl-k">Keys</span><span class="pl-k">.</span><span class="pl-c1">SHIFT</span>
+    click $(<span class="pl-s"><span class="pl-pds">"</span>li.clicky<span class="pl-pds">"</span></span>)
+    keyUp <span class="pl-k">Keys</span><span class="pl-k">.</span><span class="pl-c1">SHIFT</span>
+}</pre></div>
+
+<p>4 列子</p>
+
+<p>拖放</p>
+
+<div class="highlight highlight-source-groovy"><pre>interact {
+    clickAndHold($(<span class="pl-s"><span class="pl-pds">'</span>#draggable<span class="pl-pds">'</span></span>))
+    moveByOffset(<span class="pl-c1">150</span>, <span class="pl-c1">200</span>)
+    release()
+}
+<span class="pl-c">// 或者</span>
+interact {
+    dragAndDropBy($(<span class="pl-s"><span class="pl-pds">"</span>#draggable<span class="pl-pds">"</span></span>), <span class="pl-c1">150</span>, <span class="pl-c1">200</span>)
+}
+<span class="pl-c">// 或者</span>
+interact {
+    dragAndDrop($(<span class="pl-s"><span class="pl-pds">"</span>#draggable<span class="pl-pds">"</span></span>), $(<span class="pl-s"><span class="pl-pds">"</span>#droppable<span class="pl-pds">"</span></span>))
+}</pre></div>
+
+<p>Ctrl+单击</p>
+
+<div class="highlight highlight-source-groovy"><pre><span class="pl-k">import</span> <span class="pl-smi">org.openqa.selenium.Keys</span>
+
+interact {
+    keyDown(<span class="pl-k">Keys</span><span class="pl-k">.</span><span class="pl-c1">CONTROL</span>)
+    click($(<span class="pl-s"><span class="pl-pds">"</span>ul.multiselect li<span class="pl-pds">"</span></span>, <span class="pl-c1">text</span>: <span class="pl-s"><span class="pl-pds">"</span>Order 1<span class="pl-pds">"</span></span>))
+    click($(<span class="pl-s"><span class="pl-pds">"</span>ul.multiselect li<span class="pl-pds">"</span></span>, <span class="pl-c1">text</span>: <span class="pl-s"><span class="pl-pds">"</span>Order 2<span class="pl-pds">"</span></span>))
+    click($(<span class="pl-s"><span class="pl-pds">"</span>ul.multiselect li<span class="pl-pds">"</span></span>, <span class="pl-c1">text</span>: <span class="pl-s"><span class="pl-pds">"</span>Order 3<span class="pl-pds">"</span></span>))
+    keyUp(<span class="pl-k">Keys</span><span class="pl-k">.</span><span class="pl-c1">CONTROL</span>)
+}</pre></div>
+
+<p>滚动条</p>
+
+<div class="highlight highlight-source-groovy"><pre><span class="pl-k">Actions</span> actions <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-k">Actions</span>(driver)
+actions<span class="pl-k">.</span>moveToElement(driver<span class="pl-k">.</span>findElement(<span class="pl-k">By</span><span class="pl-k">.</span>id(<span class="pl-s"><span class="pl-pds">'</span>tab<span class="pl-pds">'</span></span>)))<span class="pl-k">.</span>perform()
+<span class="pl-c">// 或者</span>
+interact {
+            clickAndHold($(<span class="pl-s"><span class="pl-pds">'</span>#tab<span class="pl-pds">'</span></span>))
+            release()
+}
+<span class="pl-c">// 或者</span>
+interact {
+            click(theUI)
+}
+<span class="pl-c">// 或者</span>
+interact {
+            moveToElement(theUI)
+}
+<span class="pl-c">// 或者使用 js (略)</span></pre></div>
+
+<h3>
+<a id="操作-frame" class="anchor" href="#%E6%93%8D%E4%BD%9C-frame" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>操作 Frame</h3>
+
+<p>(略)</p>
+
+<h3>
+<a id="操作-javascript-ajax-和-动态页面" class="anchor" href="#%E6%93%8D%E4%BD%9C-javascript-ajax-%E5%92%8C-%E5%8A%A8%E6%80%81%E9%A1%B5%E9%9D%A2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>操作 javascript, AJAX 和 动态页面</h3>
+
+<p>(略)</p>
+
+<h3>
+<a id="处理下载" class="anchor" href="#%E5%A4%84%E7%90%86%E4%B8%8B%E8%BD%BD" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>处理下载</h3>
+
+<p>(略)</p>
+
+<h3>
+<a id="scripts-and-binding" class="anchor" href="#scripts-and-binding" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Scripts and binding</h3>
+
+<p>(略)</p>
+
+<h3>
+<a id="测试报告" class="anchor" href="#%E6%B5%8B%E8%AF%95%E6%8A%A5%E5%91%8A" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>测试报告</h3>
+
+<p>(略)</p>
+
+<h3>
+<a id="测试框架集成" class="anchor" href="#%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%E9%9B%86%E6%88%90" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>测试框架集成</h3>
+
+<p>(略)</p>
+
+<h3>
+<a id="其他" class="anchor" href="#%E5%85%B6%E4%BB%96" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>其他</h3>
+
+<p><code>Geb</code>可以通过继承<code>Page</code>类实现页面的重复使用。</p>
+
+<p>通过继承<code>Module</code>类实现局部页面以便于重复使用。</p>
+
+<p><strong>模拟点击<code>Alert()</code></strong>：</p>
+
+<div class="highlight highlight-source-java"><pre>driver<span class="pl-k">.</span>switchTo()<span class="pl-k">.</span>alert()<span class="pl-k">.</span>accept();</pre></div>
+
+<p>更多内容请参考官方文档</p>
+
+<hr>
+
+<h2>
+<a id="参考" class="anchor" href="#%E5%8F%82%E8%80%83" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>参考</h2>
+
+<ul>
+<li><a href="http://www.gebish.org/manual/current">Geb 官方文档</a></li>
+</ul>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/nikytwo/geb-sample">Geb-sample</a> is maintained by <a href="https://github.com/nikytwo">nikytwo</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
